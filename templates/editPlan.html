@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Plan
+{% endblock %}
+
+{% block main %}
+<main class="container py-5 text-center content">
+    <form action="/editPlan" method="post">
+        <div class="row g-4 size">
+            <div class="col-md-12" >
+                <span>Title</span>
+                <input value="{{ record.id }}" name="plan_id"  type="hidden">
+                <input value="{{ record.title }}" autocomplete="off" autofocus class="form-control mx-auto" name="title"  type="text">
+            </div>
+            <div class="col-md-12">
+                <span>Destination</span>
+                <input value="{{ record.destination }}" autocomplete="off" autofocus class="form-control mx-auto" name="destination"  type="text">
+            </div>
+            <div class="col-md-6">
+                <span>Start Date</span>
+                <input  value="{{ record.start_date }}" id="start_date" autocomplete="off" autofocus class="form-control mx-auto" name="start_date"  type="date">
+            </div>
+            <div class="col-md-6">
+                <span>End Date</span>
+                <input value="{{ record.end_date }}" id="end_date" autocomplete="off" autofocus class="form-control mx-auto" name="end_date" type="date">
+            </div>
+            <div class="Tday">
+                <span>Total Days:</span>
+                <input value="{{ record.total_day }}" autocomplete="off"  id="total_day" class="no_border" name="total_day" type="number" value="0" readonly>
+            </div>
+        </div><br>
+        <button class="btn btn-md save" type="submit">Save</button>
+    </form>
+</main>
+    <script>
+        //calculate total day
+        document.querySelector("#start_date").addEventListener("change", calculate);
+        document.querySelector("#end_date").addEventListener("change", calculate);
+        let totalDays=0;
+        
+        function calculate() {
+            let start_date = document.querySelector("#start_date").value;
+            let end_date = document.querySelector("#end_date").value;
+            if (start_date && end_date) {
+                let start = new Date(start_date);
+                let end = new Date(end_date);
+                let difference = end - start;
+
+                // Convert milliseconds to days
+                totalDays = difference / (1000 * 60 * 60 * 24);
+
+                if (totalDays >0) {
+                    document.querySelector("#total_day").value = totalDays;
+                } else {
+                    document.querySelector("#total_day").value = 0;
+                }
+            }
+        }
+    </script>
+
+{% endblock %}

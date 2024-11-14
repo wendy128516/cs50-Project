@@ -1,0 +1,245 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    text-align:center;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align:center;
+}
+
+a {
+    text-decoration: none;
+    color:#537fbe
+  }
+  
+a:hover {
+    color:#1352ab
+
+}
+  
+/* Header Styles */
+th {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    text-align:center;
+}
+
+/* Row Hover Effect */
+tr:hover {
+    background-color: #f1f1f1; /* Light grey background on hover */
+}
+
+/* plan.html */
+
+.no_border{
+    border: none;
+    outline : none;
+    width:2.5rem;
+    color:#537fbe;
+    background-color: rgba(234, 225, 214, 0.4);
+}
+
+.size{
+    margin: 0 2rem;
+    font-size: 1.3rem;
+}
+
+.Tday{
+    text-align: right;
+    color:#537fbe;
+    font-size: 1.3rem;    
+}
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+DE+Grund:wght@100..400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Grotesk:wght@300..700&display=swap');
+
+body{
+    font-family: "Kalam", cursive;
+    font-weight: 300;
+    font-style: normal;
+    height: 100vh;
+}
+
+/* background */
+.background {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(/static/9.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.4); /* Light overlay with opacity */
+    z-index: 1; /* Place it below the content */
+}
+
+.content {
+    position: relative;
+    z-index: 2; /* Place content above the background */
+    color: #4A628A;
+    text-align: center;
+}
+
+/* button */
+.save{
+    border-color: #FFB26F;
+    width:20%;
+    color: white;
+    background-color:#FFB26F;
+}
+
+.save:hover, .btn_type:hover{
+    color: #FFB26F;
+    border-color: #FFB26F;
+    background-color:#f8e3cd;
+}
+
+.icon_add, .icon_minus{
+    margin-top: 1rem;
+    cursor:pointer;
+}
+
+.btn_type{
+    border-color: #FFB26F;
+    color: white;
+    background-color:#FFB26F;
+}
+
+/* daily.html */
+.daily{
+    font-size: 1.2rem;
+}
+
+.left{
+    text-align: left;
+}
+.icon{
+    padding: 0.3rem;
+}
+
+.total_time{
+    background: aliceblue;
+}
+
+.col-time{
+    padding-top: 2.5rem;
+}
+
+.day{
+    font-size: 2rem;
+}
+
+#dayCount{
+    width: 2rem;
+    color: #4A628A;
+}
+
+/* all page */
+.nav-link{
+    font-family: "Playwrite DE Grund", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.3rem;
+}
+
+/* layout.html */
+.carousel-item img {
+    width: 100%; 
+    height: 700px; 
+    object-fit: cover; 
+    object-position: 50% 50%;
+}
+
+.layout_a{
+    background-color: #e26f27;
+    padding: 0.5rem 1rem;
+    color: white;
+}
+
+.layout_a:hover{
+    background-color: #de7e42;
+    color: white;
+}
+
+.carousel-caption{
+    margin-bottom: 6rem;
+}
+
+.layout_h5{
+    margin-bottom: 6rem;
+    font-size: x-large;
+    font-weight: 700;
+}
+
+/* preview.html */
+h4{
+    font-weight: 800;
+}
+.preview{
+    font-weight: 400;
+}
+
+.preview-text{
+    padding:1rem;
+}
+
+@media screen and (max-width: 991px){
+    .carousel-item img {
+        height: 500px; 
+    }
+    .layout_h5{
+        margin-bottom: 4rem;
+    }
+    .layout_a{
+        font-size: medium;
+    }
+    .carousel-caption{
+        margin-bottom: 3rem;
+    }
+}
+@media screen and (max-width: 767px){
+    .carousel-item img {
+        height: 300px; 
+    }
+    .layout_h5{
+        margin-bottom: 2rem;
+        font-size: large;
+        font-weight: 700;
+    }
+    .layout_a{
+        font-size: small;
+    }
+    .carousel-caption{
+        margin-bottom: 0;
+    }
+    .table{
+        font-size: small;
+    }
+}

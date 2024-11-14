@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    List
+{% endblock %}
+
+{% block main %}
+<main class="container py-5 text-center content">
+    <form action="/list" method="post">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Tatol Day</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Preveiw</th>
+                    </tr>
+                </thead>
+              
+                <tbody>
+                    {% if notPlan%}
+                    <tr>
+                        <td colspan="7"><a href="/plan">{{notPlan}}</a></td>
+                    <tr>
+                    {% endif %}
+                    {%for plan in plan_records%}
+                    <tr>
+                        <td><input type="checkbox" class="item-checkbox" name="plan_id" value="{{plan.id}}"></td>
+                        <td><a href="/editPlan?plan={{ plan.id }}">{{plan.title}}</a></td>
+                        <td>{{plan.destination}}</td>
+                        <td>{{plan.start_date}} to {{plan.end_date}}</td>
+                        <td>{{plan.total_day}}</td>
+                        <td>    
+                            {% for day in range(1, plan.total_day+1) %}
+                                <a href="/editDay?plan={{ plan.id }}&&day={{ day }}">Day {{ day }}</a>
+                            {% endfor %}
+                            </td>
+                        <td><a href="/preview?plan={{ plan.id }}"><img src="/static/icons8-view-details-96.png" width="20px"></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><br>
+        
+        <button class="btn btn-md save" type="submit">Delete</button>
+
+    </form>
+</main>
+{% endblock %}

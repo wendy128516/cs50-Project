@@ -1,0 +1,177 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Day
+{% endblock %}
+
+{% block main %}
+    {% if record %}
+<main class="container py-5 text-center content">
+    <!-- show plan record -->
+    <div class="row g-3">
+        <div class="row g-4 size">
+            <div class="col-md-4 left">
+                <h3>Title:</h3>
+                <p class="daily">{{record.title}}</p>
+            </div>
+            <div class="col-md-4 left">
+                <h3>Destination:</h3>
+                <p class="daily">{{record.destination}}</p>
+            </div>
+            <div class="col-md-4 left">
+                <h3 class="" >Date:</h3>
+                <p class="daily">{{record.start_date}} to {{record.end_date}}</p>
+            </div>
+        </div>
+    </div><hr>
+    <!-- show daily record -->
+    <form action="/editDay" method="post">
+        <div class="row g-4">
+            <input type="hidden" id="plan_id" name="plan_id" value="{{record.id}}">
+        {% endif %}
+            {%if day_count%}
+            <div class="day">
+                <label for="dayCount">Day</label> 
+                <input value="{{day_count}}" id="dayCount" class="no_border" autocomplete="off" autofocus class="form-control mx-auto" name="dayCount" type="number" readonly>    
+            {% endif %}
+            </div>
+            <div class="col-md-2">
+                <p>Tatol Time Difference Between</p>
+            </div>
+            <div class="col-md-2" class="time">
+                Time            
+            </div>
+            <div class="col-md-3" class="location">
+                Location            
+            </div>
+            <div class="col-md-4" class="activity">
+                Activity            
+            </div>
+            <div class="col-md-1">
+            </div>  
+        </div>
+        {% for record in daily_records %}
+        <div class="row g-4" class="show">
+            <div class="col-md-2 col-time">
+                <p class="total_time"></p>
+            </div>
+            <div class="col-md-2" class="time">
+                <input value="{{record.time}}" autocomplete="off" autofocus class="form-control mx-auto time-point" name="time" type="time">
+            </div>
+            <div class="col-md-3" class="location">
+                <input value="{{record.location}}" autocomplete="off" autofocus class="form-control mx-auto" name="location" type="text">
+            </div>
+            <div class="col-md-4" class="activity">
+                <input value="{{record.activity}}" autocomplete="off" autofocus class="form-control mx-auto" name="activity" type="text">                    
+            </div>
+            <div class="col-md-1 icon_minus">
+                <img src="/static/icons8-minus-96.png" class="icon" alt="icon_minus" width="50" height="50" onclick="minus(event), timeDifference()">
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row g-4" class="show">
+            <div class="col-md-2 col-time">
+                <p class="total_time"></p>
+            </div>
+            <div class="col-md-2" class="time">
+                <input autocomplete="off" class="form-control mx-auto time-point" name="time" type="time">
+            </div>
+            <div class="col-md-3" class="location">
+                <input autocomplete="off" autofocus class="form-control mx-auto" name="location" type="text">
+            </div>
+            <div class="col-md-4" class="activity">
+                <input autocomplete="off" autofocus class="form-control mx-auto" name="activity" type="text">
+            </div>
+            <div class="col-md-1 icon_add">
+                <img src="/static/icons8-add-96.png" class="icon" alt="icon_add" width="50" height="50" onclick="add(), timeDifference()">
+            </div> 
+        </div>
+        
+        <!-- for add row-->
+        <br class="last"> 
+
+        <button class="btn btn-md save" type="submit">Save</button>
+
+    </form>
+</main>
+    <script>
+        // add and remove row
+        function add() {
+                let add_html = `
+                <div class="row g-4" class="show">                                               
+                    <div class="col-md-2 col-time">
+                        <p class="total_time"></p>
+                    </div>           
+                    <div class="col-md-2">
+                        <input autocomplete="off" class="form-control mx-auto time-point" name="time" type="time">
+                    </div>
+                    <div class="col-md-3">
+                        <input autocomplete="off" class="form-control mx-auto" name="location" type="text">
+                    </div>
+                    <div class="col-md-4">
+                        <input autocomplete="off" class="form-control mx-auto" name="activity" type="text">
+                    </div>
+                    <div class="col-md-1 icon_add">
+                        <img src="/static/icons8-add-96.png" class="icon" alt="Girl in a jacket" width="50" height="50" onclick="add(), timeDifference()">
+                    </div> 
+                </div>
+                `;
+
+                const last = document.querySelector(".last");
+                last.insertAdjacentHTML('beforebegin', add_html);
+
+                const icon_add = document.querySelector(".icon_add");
+
+                let icon_html = `                       
+                <div class="col-md-1 icon_minus">
+                        <img src="/static/icons8-minus-96.png" class="icon" alt="icon_minus" width="50" height="50" onclick="minus(event), timeDifference()">
+                </div>
+                `;
+                icon_add.outerHTML = icon_html;
+            }
+
+        // event.target refers to the clicked element
+        function minus(event) {
+            const element = event.target;
+            element.closest(".row").remove();
+        }
+
+        // Tatol Time Difference Between
+        function timeDifference() {
+            let timeInputs = document.querySelectorAll('.time-point');
+
+            timeInputs.forEach(input => {
+                input.addEventListener("change", timeDifference);
+            });
+            let timeDifferenceDisplay = document.querySelectorAll('.total_time')
+
+            for (let i = 0; i < timeInputs.length - 1; i++) {
+                let time1 = timeInputs[i].value;
+                let time2 = timeInputs[i + 1].value;
+                let show = timeDifferenceDisplay[i]
+                
+                let [hr1, mins1] = time1.split(':').map(Number);
+                let [hr2, mins2] = time2.split(':').map(Number);
+                
+                let totalMins1 = hr1 * 60 + mins1
+                let totalMins2 = hr2 * 60 + mins2
+                
+                let differenceMins = totalMins2 - totalMins1;
+
+                if(differenceMins > 60){
+                    let hr = Math.floor(differenceMins / 60);
+                    let mins = differenceMins % 60;
+                    show.innerHTML = hr + "hr " + mins + "mins";
+                }
+                else if (differenceMins > 0){
+                    show.innerHTML = differenceMins + "mins";
+                }else{
+                    show.innerHTML = "0 mins";
+                }
+            }
+        }
+        timeDifference()
+        
+    </script>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Preview
+{% endblock %}
+
+{% block main %}
+    <main class="container py-5 text-center content">
+        <!-- Show plan record -->
+        <div class="row g-3">
+            <div class="col left">
+                {% if record %}
+                    <h4>Title: <span class="preview">{{ record.title }}</span></h4>
+                    <h4>Destination: <span class="preview">{{ record.destination }}</span></h4>
+                    <h4>Date: <span class="preview">{{ record.start_date }} to {{ record.end_date }}</span></h4>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <!-- Show daily record -->
+        {% for day in range(1, record.total_day + 1) %}
+        <div class="row g-3">
+            <h5 class="day">Day {{ day }}</h5>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 time">
+                <h5 class="preview-text">Time</h5>                       
+            </div>
+            <div class="col-md-4 location">
+                <h5 class="preview-text">Location</h5>                       
+            </div>
+             <div class="col-md-4 activity">
+                <h5 class="preview-text">Activity</h5>                        
+            </div>
+        </div>
+        {% for daily_record in daily_records %}
+            {% if daily_record.day_count == day %}
+                <div class="row g-4">
+                    <div class="col-md-4 time">
+                        {{ daily_record.time }}
+                    </div>
+                    <div class="col-md-4 location">
+                        {{ daily_record.location }}
+                    </div>                        
+                    <div class="col-md-4 activity">    
+                        {{ daily_record.activity }}
+                    </div>
+                </div>    
+            {% endif %}
+        {% endfor %}<br><br>
+    {% endfor %}
+</main>
+{% endblock %}
