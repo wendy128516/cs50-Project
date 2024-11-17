@@ -9,21 +9,15 @@
 <main class="container py-5 text-center content">
     <!-- show plan record -->
     <div class="row g-3">
-        <div class="row g-4 size">
-            <div class="col-md-4 left">
-                <h3>Title:</h3>
-                <p class="daily">{{record.title}}</p>
-            </div>
-            <div class="col-md-4 left">
-                <h3>Destination:</h3>
-                <p class="daily">{{record.destination}}</p>
-            </div>
-            <div class="col-md-4 left">
-                <h3 class="" >Date:</h3>
-                <p class="daily">{{record.start_date}} to {{record.end_date}}</p>
-            </div>
+        <div class="col left">
+            {% if record %}
+                <h4>Title: <span class="view">{{ record.title }}</span></h4>
+                <h4>Destination: <span class="view">{{ record.destination }}</span></h4>
+                <h4>Date: <span class="view">{{ record.start_date }} to {{ record.end_date }}</span></h4>
+            {% endif %}
         </div>
-    </div><hr>
+    </div>
+    <hr class="double">
     <!-- show daily record -->
     <form action="/editDay" method="post">
         <div class="row g-4">
@@ -35,54 +29,55 @@
                 <input value="{{day_count}}" id="dayCount" class="no_border" autocomplete="off" autofocus class="form-control mx-auto" name="dayCount" type="number" readonly>    
             {% endif %}
             </div>
-            <div class="col-md-2">
-                <p>Tatol Time Difference Between</p>
+            <div class="col-2 col-md-2">
+                <h5>Total Time </h5> 
+                <h7>(between two time point)</h7>  
             </div>
-            <div class="col-md-2" class="time">
-                Time            
+            <div class="col-3 col-md-3" class="time">
+                <h5>Time</h5>                                   
             </div>
-            <div class="col-md-3" class="location">
-                Location            
+            <div class="col-3 col-md-3" class="location">
+                <h5>Location</h5>                                   
             </div>
-            <div class="col-md-4" class="activity">
-                Activity            
+            <div class="col-3 col-md-3" class="activity">
+                <h5>Activity</h5>                                   
             </div>
-            <div class="col-md-1">
+            <div class="col-1 col-md-1">
             </div>  
         </div>
         {% for record in daily_records %}
         <div class="row g-4" class="show">
-            <div class="col-md-2 col-time">
+            <div class="col-2 col-md-2 col-time">
                 <p class="total_time"></p>
             </div>
-            <div class="col-md-2" class="time">
+            <div class="col-3 col-md-3" class="time">
                 <input value="{{record.time}}" autocomplete="off" autofocus class="form-control mx-auto time-point" name="time" type="time">
             </div>
-            <div class="col-md-3" class="location">
+            <div class="col-3 col-md-3" class="location">
                 <input value="{{record.location}}" autocomplete="off" autofocus class="form-control mx-auto" name="location" type="text">
             </div>
-            <div class="col-md-4" class="activity">
+            <div class="col-3 col-md-3" class="activity">
                 <input value="{{record.activity}}" autocomplete="off" autofocus class="form-control mx-auto" name="activity" type="text">                    
             </div>
-            <div class="col-md-1 icon_minus">
+            <div class="col-1 col-md-1 icon_minus">
                 <img src="/static/icons8-minus-96.png" class="icon" alt="icon_minus" width="50" height="50" onclick="minus(event), timeDifference()">
             </div>
         </div>
         {% endfor %}
         <div class="row g-4" class="show">
-            <div class="col-md-2 col-time">
+            <div class="col-2 col-md-2 col-time">
                 <p class="total_time"></p>
             </div>
-            <div class="col-md-2" class="time">
+            <div class="col-3 col-md-3" class="time">
                 <input autocomplete="off" class="form-control mx-auto time-point" name="time" type="time">
             </div>
-            <div class="col-md-3" class="location">
+            <div class="col-3 ol-md-3" class="location">
                 <input autocomplete="off" autofocus class="form-control mx-auto" name="location" type="text">
             </div>
-            <div class="col-md-4" class="activity">
+            <div class="col-3 col-md-3" class="activity">
                 <input autocomplete="off" autofocus class="form-control mx-auto" name="activity" type="text">
             </div>
-            <div class="col-md-1 icon_add">
+            <div class="col-1 col-md-1 icon_add">
                 <img src="/static/icons8-add-96.png" class="icon" alt="icon_add" width="50" height="50" onclick="add(), timeDifference()">
             </div> 
         </div>
@@ -99,19 +94,19 @@
         function add() {
                 let add_html = `
                 <div class="row g-4" class="show">                                               
-                    <div class="col-md-2 col-time">
+                    <div class="col-2 col-md-2 col-time">
                         <p class="total_time"></p>
                     </div>           
-                    <div class="col-md-2">
+                    <div class="col-3 col-md-3">
                         <input autocomplete="off" class="form-control mx-auto time-point" name="time" type="time">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-3 col-md-3">
                         <input autocomplete="off" class="form-control mx-auto" name="location" type="text">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-3 col-md-3">
                         <input autocomplete="off" class="form-control mx-auto" name="activity" type="text">
                     </div>
-                    <div class="col-md-1 icon_add">
+                    <div class="col-1 col-md-1 icon_add">
                         <img src="/static/icons8-add-96.png" class="icon" alt="Girl in a jacket" width="50" height="50" onclick="add(), timeDifference()">
                     </div> 
                 </div>
@@ -123,7 +118,7 @@
                 const icon_add = document.querySelector(".icon_add");
 
                 let icon_html = `                       
-                <div class="col-md-1 icon_minus">
+                <div class="col-1 col-md-1 icon_minus">
                         <img src="/static/icons8-minus-96.png" class="icon" alt="icon_minus" width="50" height="50" onclick="minus(event), timeDifference()">
                 </div>
                 `;

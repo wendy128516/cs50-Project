@@ -192,7 +192,7 @@ def day():
             return render_template('day.html', record=record, dayCount=dayCount, button="Next Day")
         else:
             session.pop('dayCount', None)
-            return redirect("/")
+            return redirect("/list")
 
     if request.method == "POST":
         day_count = request.form.get("dayCount") 
@@ -282,7 +282,6 @@ def editDay():
                     text("INSERT INTO daily_plan (plan_id, day_count, location, time, activity, created_at, updated_at) VALUES (:plan_id, :day_count, :location, :time, :activity, :created_at, :updated_at)"),
                     {"plan_id": plan_id, "day_count":day_count, "location": location , "time": time, "activity": activity, "created_at": utcnow(), "updated_at": utcnow()}
                     )
-                print("update OK:",update)
 
             db.session.commit()
         return redirect('/list')
@@ -342,8 +341,8 @@ def editPlan():
     
     return redirect("/list")
 
-@app.route("/preview", methods=["GET", "POST"])
-def preview():
+@app.route("/view", methods=["GET", "POST"])
+def view():
     if request.method == "GET":
         plan_id = request.args.get("plan")
 
@@ -357,4 +356,4 @@ def preview():
             {'plan_id': plan_id}
         ).fetchall() 
         
-        return render_template('preview.html', record=plan_records, daily_records=daily_records)
+        return render_template('view.html', record=plan_records, daily_records=daily_records)

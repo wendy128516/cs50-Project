@@ -17,7 +17,7 @@
                         <th scope="col">Date</th>
                         <th scope="col">Tatol Day</th>
                         <th scope="col">Edit</th>
-                        <th scope="col">Preveiw</th>
+                        <th scope="col">Veiw</th>
                     </tr>
                 </thead>
               
@@ -39,7 +39,7 @@
                                 <a href="/editDay?plan={{ plan.id }}&&day={{ day }}">Day {{ day }}</a>
                             {% endfor %}
                             </td>
-                        <td><a href="/preview?plan={{ plan.id }}"><img src="/static/icons8-view-details-96.png" width="20px"></a></td>
+                        <td><a href="/view?plan={{ plan.id }}"><img src="/static/icons8-view-details-96.png" width="20px"></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
