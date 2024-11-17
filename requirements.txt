@@ -1,5 +1,6 @@
-CS50
 Flask
 Flask-Session
-pytz
-requests
+werkzeug.security
+flask_sqlalchemy
+sqlalchemy
+datetime

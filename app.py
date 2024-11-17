@@ -51,12 +51,12 @@ with app.app_context():
     db.create_all()
 
     # check table content
-    tables = db.session.execute(text("SELECT name FROM sqlite_master WHERE type='table';")).fetchall()
-    print("Tables in the database:", tables)
+    # tables = db.session.execute(text("SELECT name FROM sqlite_master WHERE type='table';")).fetchall()
+    # print("Tables in the database:", tables)
     
-    # check plan content
-    plan = db.session.execute(text("SELECT * FROM plan")).fetchall()
-    print(plan)
+    # # check plan content
+    # plan = db.session.execute(text("SELECT * FROM plan")).fetchall()
+    # print(plan)
 
     # reset table
     # db.drop_all()
@@ -235,6 +235,10 @@ def list():
             db.session.execute(
                 text("DELETE FROM plan WHERE id = :id"),
                 {"id": id}
+            )
+            db.session.execute(
+                text("DELETE FROM daily_plan WHERE plan_id = :plan_id"),
+                {"plan_id": id}
             )
         db.session.commit()
         
